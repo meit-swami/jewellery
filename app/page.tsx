@@ -4,6 +4,19 @@ import { ArrowRight, Sparkles } from "lucide-react";
 import ProductGrid from "@/components/ProductGrid";
 import { prisma } from "@/lib/prisma";
 
+type StockStatus = "AVAILABLE" | "LOW_STOCK" | "OUT_OF_STOCK";
+
+interface ProductForGrid {
+  id: string;
+  name: string;
+  slug: string;
+  price: number;
+  stockStatus: StockStatus;
+  images: Array<{ url: string; alt: string | null }>;
+  videos?: Array<{ url: string }>;
+  category: { name: string; slug: string };
+}
+
 async function getFeaturedProducts() {
   try {
     const products = await prisma.product.findMany({
@@ -88,12 +101,12 @@ export default async function HomePage() {
             </div>
             
             <ProductGrid 
-              products={featuredProducts.map((p) => ({
+              products={featuredProducts.map((p): ProductForGrid => ({
                 id: p.id,
                 name: p.name,
                 slug: p.slug,
                 price: p.price,
-                stockStatus: p.stockStatus as "AVAILABLE" | "LOW_STOCK" | "OUT_OF_STOCK",
+                stockStatus: p.stockStatus as StockStatus,
                 images: p.images.map((img) => ({
                   url: img.url,
                   alt: img.alt,
