@@ -186,7 +186,7 @@ export default function WhatsAppContact({
               </button>
 
               <p className="text-xs text-center text-luxury-charcoal-light">
-                You'll be redirected to WhatsApp to send your message
+                You&apos;ll be redirected to WhatsApp to send your message
               </p>
             </div>
           </div>
