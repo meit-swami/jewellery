@@ -113,7 +113,7 @@ export default function ARTryOnViewer({
         } else if (error.name === "NotReadableError" || error.name === "TrackStartError") {
           userMessage += "Camera is already in use by another application. Please close other apps using the camera and try again.";
         } else if (error.name === "OverconstrainedError" || error.name === "ConstraintNotSatisfiedError") {
-          userMessage += "Camera doesn't support the required settings. Trying with basic settings...";
+          userMessage += "Camera doesn&apos;t support the required settings. Trying with basic settings...";
           // Could retry here, but for now just show error
         } else if (error.message) {
           userMessage += error.message;
