@@ -89,8 +89,22 @@ export default async function HomePage() {
             
             <ProductGrid 
               products={featuredProducts.map((p) => ({
-                ...p,
+                id: p.id,
+                name: p.name,
+                slug: p.slug,
+                price: p.price,
                 stockStatus: p.stockStatus as "AVAILABLE" | "LOW_STOCK" | "OUT_OF_STOCK",
+                images: p.images.map((img) => ({
+                  url: img.url,
+                  alt: img.alt,
+                })),
+                videos: p.videos?.map((v) => ({
+                  url: v.url,
+                })),
+                category: {
+                  name: p.category.name,
+                  slug: p.category.slug,
+                },
               }))} 
             />
             
