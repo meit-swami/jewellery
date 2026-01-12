@@ -87,7 +87,12 @@ export default async function HomePage() {
               </p>
             </div>
             
-            <ProductGrid products={featuredProducts} />
+            <ProductGrid 
+              products={featuredProducts.map((p) => ({
+                ...p,
+                stockStatus: p.stockStatus as "AVAILABLE" | "LOW_STOCK" | "OUT_OF_STOCK",
+              }))} 
+            />
             
             <div className="text-center mt-12">
               <Link
