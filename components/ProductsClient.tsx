@@ -242,7 +242,12 @@ export default function ProductsClient({
         {/* Products Grid */}
         {filteredProducts.length > 0 ? (
           <>
-            <ProductGrid products={filteredProducts} />
+            <ProductGrid 
+              products={filteredProducts.map((p) => ({
+                ...p,
+                stockStatus: p.stockStatus as "AVAILABLE" | "LOW_STOCK" | "OUT_OF_STOCK",
+              }))} 
+            />
             <div className="mt-8 text-center text-luxury-charcoal-light">
               Showing {filteredProducts.length} product{filteredProducts.length !== 1 ? "s" : ""}
             </div>
