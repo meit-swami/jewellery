@@ -167,7 +167,7 @@ export default function StockManagementModal({
               className="w-full px-4 py-2 border border-luxury-ivory-darker rounded-lg focus:outline-none focus:ring-2 focus:ring-luxury-gold"
             />
             <p className="text-xs text-luxury-charcoal-light mt-1">
-              Product will show "Low Stock" when count reaches this threshold
+              Product will show &quot;Low Stock&quot; when count reaches this threshold
             </p>
           </div>
 
