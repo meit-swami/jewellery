@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import Image from "next/image";
 import { prisma } from "@/lib/prisma";
 import ARTryOnButton from "@/components/ARTryOnButton";
-import ClientWrapper from "./client-wrapper";
+import ClientWrapper from "@/app/products/[slug]/client-wrapper";
 import WhatsAppContact from "@/components/WhatsAppContact";
 import ProductView360Wrapper from "@/components/ProductView360Wrapper";
 import { ShoppingBag, AlertCircle, CheckCircle2 } from "lucide-react";
