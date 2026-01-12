@@ -26,6 +26,8 @@ interface Product {
   featured: boolean;
   category: { name: string; slug: string };
   images: Array<{ url: string; id: string }>;
+  videos?: Array<{ url: string; id?: string }>;
+  threeDModel?: string | null;
   _count?: { images: number; videos: number };
 }
 
@@ -33,6 +35,20 @@ interface Category {
   id: string;
   name: string;
   slug: string;
+}
+
+// Type for AdminProductForm (with categoryId instead of category object)
+interface AdminProductFormProduct {
+  id: string;
+  name: string;
+  price: number;
+  categoryId: string;
+  images: Array<{ url: string; id: string }>;
+  videos?: Array<{ url: string }>;
+  stockCount: number;
+  lowStockThreshold: number;
+  featured: boolean;
+  threeDModel?: string | null;
 }
 
 function formatPrice(price: number): string {
@@ -63,7 +79,7 @@ async function deleteProduct(id: string): Promise<void> {
 
 export default function AdminPage() {
   const router = useRouter();
-  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [selectedProduct, setSelectedProduct] = useState<AdminProductFormProduct | null>(null);
   const [stockProduct, setStockProduct] = useState<Product | null>(null);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isStockModalOpen, setIsStockModalOpen] = useState(false);
@@ -95,7 +111,22 @@ export default function AdminPage() {
   });
 
   const handleEdit = (product: Product) => {
-    setSelectedProduct(product);
+    // Transform product to match AdminProductForm's expected type
+    // Find categoryId from categories array based on category slug
+    const category = categories.find((cat) => cat.slug === product.category.slug);
+    const transformedProduct: AdminProductFormProduct = {
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      categoryId: category?.id || "",
+      images: product.images,
+      videos: product.videos?.map((v) => ({ url: v.url })) || [],
+      stockCount: product.stockCount,
+      lowStockThreshold: product.lowStockThreshold,
+      featured: product.featured,
+      threeDModel: product.threeDModel || undefined,
+    };
+    setSelectedProduct(transformedProduct);
     setIsFormOpen(true);
   };
 
