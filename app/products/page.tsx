@@ -44,8 +44,8 @@ function formatPrice(price: number): string {
   }).format(price);
 }
 
-function getStockStatusBadge(status: string, count: number) {
-  const stockStatus = toStockStatus(status);
+function getStockStatusBadge(status: string, count: number): JSX.Element {
+  const stockStatus: StockStatus = toStockStatus(status);
   switch (stockStatus) {
     case "OUT_OF_STOCK":
       return (
