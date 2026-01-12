@@ -8,6 +8,13 @@ import ProductView360Wrapper from "@/components/ProductView360Wrapper";
 import { ShoppingBag, AlertCircle, CheckCircle2 } from "lucide-react";
 type StockStatus = "AVAILABLE" | "LOW_STOCK" | "OUT_OF_STOCK";
 
+function toStockStatus(status: string): StockStatus {
+  if (status === "AVAILABLE" || status === "LOW_STOCK" || status === "OUT_OF_STOCK") {
+    return status as StockStatus;
+  }
+  return "AVAILABLE"; // Default fallback
+}
+
 async function getProduct(slug: string) {
   try {
     const product = await prisma.product.findUnique({
@@ -37,8 +44,9 @@ function formatPrice(price: number): string {
   }).format(price);
 }
 
-function getStockStatusBadge(status: StockStatus, count: number) {
-  switch (status) {
+function getStockStatusBadge(status: string, count: number): JSX.Element {
+  const stockStatus: StockStatus = toStockStatus(status);
+  switch (stockStatus) {
     case "OUT_OF_STOCK":
       return (
         <div className="inline-flex items-center gap-2 bg-red-100 text-red-800 px-4 py-2 rounded-full">
